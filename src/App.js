@@ -34,18 +34,23 @@ function App() {
   };
   return (
     <div className="App">
-      <input type="text" onChange={nameTextHandler} />
-      <button onClick={addToList}>Submit</button>
+      <h1>Todo List</h1>
+      <div className="new-todo-container">
+        <label>Add New Todo</label>
+        <input type="text" onChange={nameTextHandler} />
+        <button onClick={addToList}>Submit</button>
+      </div>
       {todoList.map((item) => {
         return (
-          <div>
+          <div className="todo-item">
             <h2>{item.name}</h2>
             <button
               onClick={() => {
                 deleteItem(item._id);
               }}
+              className="completed-btn"
             >
-              Completed
+              Done
             </button>
             {/* <button
               onClick={() => {
