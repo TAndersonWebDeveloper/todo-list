@@ -15,7 +15,7 @@ function App() {
     Axios.post("http://localhost:8080/", {
       name: nameText,
     });
-    // window.location.reload();
+    window.location.reload();
   };
   //Retrieve list from database
   useEffect(() => {
