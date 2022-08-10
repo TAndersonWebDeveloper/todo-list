@@ -7,11 +7,13 @@ function App() {
 
   const nameTextHandler = (e) => {
     setNameText(e.target.value);
-    console.log(nameText);
   };
 
   //Add new item to list
   const addToList = () => {
+    if (nameText == "") {
+      return;
+    }
     Axios.post("http://localhost:8080/", {
       name: nameText,
     });
@@ -36,8 +38,11 @@ function App() {
     <div className="App">
       <h1>Todo List</h1>
       <div className="new-todo-container">
-        <label>Add New Todo</label>
-        <input type="text" onChange={nameTextHandler} />
+        <input
+          placeholder="Add New Todo"
+          type="text"
+          onChange={nameTextHandler}
+        />
         <button onClick={addToList}>Submit</button>
       </div>
       {todoList.map((item) => {
