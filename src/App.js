@@ -12,25 +12,25 @@ function App() {
 
   //Add new item to list
   const addToList = () => {
-    Axios.post("http://localhost:8080/", {
+    Axios.post("https://todo-listv3.herokuapp.com/", {
       name: nameText,
     });
     window.location.reload();
   };
   //Retrieve list from database
   useEffect(() => {
-    Axios.get("http://localhost:8080/get-list").then((response) => {
+    Axios.get("https://todo-listv3.herokuapp.com/get-list").then((response) => {
       setTodoList(response.data);
     });
   }, []);
   //Delete item from list
   const deleteItem = (id) => {
-    Axios.delete(`http://localhost:8080/delete-item/${id}`);
+    Axios.delete(`https://todo-listv3.herokuapp.com/delete-item/${id}`);
     window.location.reload(true);
   };
   //Update Item
   const updateItem = (id) => {
-    Axios.put(`http://localhost:8080/update/${id}`);
+    Axios.put(`https://todo-listv3.herokuapp.com/update/${id}`);
   };
   return (
     <div className="App">
