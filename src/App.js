@@ -12,40 +12,45 @@ function App() {
 
   //Add new item to list
   const addToList = () => {
-    Axios.post("https://todo-listv3.herokuapp.com/", {
+    Axios.post("http://localhost:8080/", {
       name: nameText,
     });
     window.location.reload();
   };
   //Retrieve list from database
   useEffect(() => {
-    Axios.get("https://todo-listv3.herokuapp.com/get-list").then((response) => {
+    Axios.get("http://localhost:8080/get-list").then((response) => {
       setTodoList(response.data);
     });
   }, []);
   //Delete item from list
   const deleteItem = (id) => {
-    Axios.delete(`https://todo-listv3.herokuapp.com/delete-item/${id}`);
+    Axios.delete(`http://localhost:8080/delete-item/${id}`);
     window.location.reload(true);
   };
   //Update Item
   const updateItem = (id) => {
-    Axios.put(`https://todo-listv3.herokuapp.com/update/${id}`);
+    Axios.put(`http://localhost:8080/update/${id}`);
   };
   return (
     <div className="App">
-      <input type="text" onChange={nameTextHandler} />
-      <button onClick={addToList}>Submit</button>
+      <h1>Todo List</h1>
+      <div className="new-todo-container">
+        <label>Add New Todo</label>
+        <input type="text" onChange={nameTextHandler} />
+        <button onClick={addToList}>Submit</button>
+      </div>
       {todoList.map((item) => {
         return (
-          <div>
+          <div className="todo-item">
             <h2>{item.name}</h2>
             <button
               onClick={() => {
                 deleteItem(item._id);
               }}
+              className="completed-btn"
             >
-              Completed
+              Done
             </button>
             {/* <button
               onClick={() => {
