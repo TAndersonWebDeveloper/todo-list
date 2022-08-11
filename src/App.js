@@ -4,7 +4,7 @@ import Axios from "axios";
 function App() {
   const [nameText, setNameText] = useState("");
   const [todoList, setTodoList] = useState([]);
-
+  const [loading, setLoading] = useState(false);
   const nameTextHandler = (e) => {
     setNameText(e.target.value);
   };
@@ -14,25 +14,27 @@ function App() {
     if (nameText == "") {
       return;
     }
-    Axios.post("http://localhost:8080/", {
+    Axios.post("https://todo-listv3.herokuapp.com/", {
       name: nameText,
     });
     window.location.reload();
   };
   //Retrieve list from database
   useEffect(() => {
-    Axios.get("http://localhost:8080/get-list").then((response) => {
+    setLoading(true);
+    Axios.get("https://todo-listv3.herokuapp.com/get-list").then((response) => {
       setTodoList(response.data);
     });
+    setLoading(false);
   }, []);
   //Delete item from list
   const deleteItem = (id) => {
-    Axios.delete(`http://localhost:8080/delete-item/${id}`);
+    Axios.delete(`https://todo-listv3.herokuapp.com/delete-item/${id}`);
     window.location.reload(true);
   };
   //Update Item
   const updateItem = (id) => {
-    Axios.put(`http://localhost:8080/update/${id}`);
+    Axios.put(`https://todo-listv3.herokuapp.com/update/${id}`);
   };
   return (
     <div className="App">
@@ -45,6 +47,7 @@ function App() {
         />
         <button onClick={addToList}>Submit</button>
       </div>
+      {loading && <p>Loading todos...</p>}
       {todoList.map((item) => {
         return (
           <div className="todo-item">
@@ -57,13 +60,13 @@ function App() {
             >
               Done
             </button>
-            {/* <button
+            <button
               onClick={() => {
                 updateItem(item._id);
               }}
             >
               Change
-            </button> */}
+            </button>
           </div>
         );
       })}
